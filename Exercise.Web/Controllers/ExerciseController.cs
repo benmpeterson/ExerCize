@@ -43,5 +43,14 @@ namespace Exercise.Web.Controllers
 
             
         }
+
+        public ActionResult Details(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new ExerciseService(userId);
+            var model = service.GetWorkoutById(id);
+
+            return View(model);
+        }
     }
 }

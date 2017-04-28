@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exercise.Data;
-using Exercise.Models;
+
 
 namespace Exercise.Services
 {
@@ -56,6 +56,26 @@ namespace Exercise.Services
                             }
                             );
                 return query.ToArray();
+            }
+        }
+
+        public ExerciseDetail GetWorkoutById(int exerciseId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Workouts
+                        .Single(e => e.ExcerciseId == exerciseId && e.OwnerId == _userId);
+                return
+                    new ExerciseDetail
+                    {
+                        ExerciseId = entity.ExcerciseId,
+                        Type = entity.Type,
+                        Intensity = entity.Intensity,
+                        CaloritesBurned = entity.CaloriesBurned,
+                        Created = entity.CreatedUtc,                       
+                    };
             }
         }
     }
