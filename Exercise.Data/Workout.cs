@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Exercise.Data
 {
-    public class Exercise
+    public class Workout
     {
         [Key]
         public int ExcerciseId { get; set; }
@@ -34,3 +34,4 @@ namespace Exercise.Data
         public DateTimeOffset? ModifiedUtc { get; set; }
     }
 }
+

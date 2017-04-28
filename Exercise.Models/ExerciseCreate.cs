@@ -7,16 +7,15 @@ using System.Threading.Tasks;
 
 namespace Exercise.Models
 {
-    public class ExerciseListItem
+    public class ExerciseCreate
     {
-        public int ExcerciseId { get; set; }
+        [Required]        
         public string Type { get; set; }
+        
+        [Required]        
         public string Intensity { get; set; }
+
+        [Required]        
         public int Duration { get; set; }
-        public int CaloriesBurned { get; set; }
-
-        [Display(Name="Created")]
-        public DateTimeOffset CreatedUTC { get; set; }
-
     }
 }

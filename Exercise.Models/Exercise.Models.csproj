@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExerciseCreate.cs" />
+    <Compile Include="ExerciseDetail.cs" />
+    <Compile Include="ExerciseEdit.cs" />
     <Compile Include="ExerciseListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -53,11 +53,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExerciseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Exercise.Data\Exercise.Data.csproj">
+      <Project>{b6de02f0-0f07-41c0-bb9c-7b1a5bdafa52}</Project>
+      <Name>Exercise.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Exercise.Models\Exercise.Models.csproj">
+      <Project>{8ad340c8-1a49-4e6a-b5d6-bb9ee35b08b5}</Project>
+      <Name>Exercise.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
