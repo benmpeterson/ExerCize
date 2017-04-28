@@ -195,7 +195,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -275,6 +274,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Exercise.Data\Exercise.Data.csproj">
+      <Project>{b6de02f0-0f07-41c0-bb9c-7b1a5bdafa52}</Project>
+      <Name>Exercise.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Exercise.Models\Exercise.Models.csproj">
+      <Project>{8ad340c8-1a49-4e6a-b5d6-bb9ee35b08b5}</Project>
+      <Name>Exercise.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Exercise.Services\Exercise.Services.csproj">
+      <Project>{798d49f0-c444-4338-bad1-9f9e1d2415dd}</Project>
+      <Name>Exercise.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
