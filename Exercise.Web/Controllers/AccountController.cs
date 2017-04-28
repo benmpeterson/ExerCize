@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Exercise.Web.Models;
-using Exercise.Web.Data;
+using Exercise.Data;
 
 namespace Exercise.Web.Controllers
 {

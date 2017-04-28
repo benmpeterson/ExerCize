@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Exercise.Web.Models;
-using Exercise.Web.Data;
+using Exercise.Data;
 
 namespace Exercise.Web
 {
