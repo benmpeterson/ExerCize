@@ -53,6 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201704282301074_InitialCreate.cs" />
+    <Compile Include="Migrations\201704282301074_InitialCreate.Designer.cs">
+      <DependentUpon>201704282301074_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704302134425_AddedKeyToExerciseDetail.cs" />
+    <Compile Include="Migrations\201704302134425_AddedKeyToExerciseDetail.Designer.cs">
+      <DependentUpon>201704302134425_AddedKeyToExerciseDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704302205370_ChangedIntsToDouble.cs" />
+    <Compile Include="Migrations\201704302205370_ChangedIntsToDouble.Designer.cs">
+      <DependentUpon>201704302205370_ChangedIntsToDouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Workout.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +73,17 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704282301074_InitialCreate.resx">
+      <DependentUpon>201704282301074_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704302134425_AddedKeyToExerciseDetail.resx">
+      <DependentUpon>201704302134425_AddedKeyToExerciseDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704302205370_ChangedIntsToDouble.resx">
+      <DependentUpon>201704302205370_ChangedIntsToDouble.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

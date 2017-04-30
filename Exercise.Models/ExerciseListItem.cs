@@ -12,8 +12,8 @@ namespace Exercise.Models
         public int ExcerciseId { get; set; }
         public string Type { get; set; }
         public string Intensity { get; set; }
-        public int Duration { get; set; }
-        public int CaloriesBurned { get; set; }
+        public double Duration { get; set; }
+        public double CaloriesBurned { get; set; }
 
         [Display(Name="Created")]
         public DateTimeOffset CreatedUTC { get; set; }

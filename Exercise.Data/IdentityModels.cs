@@ -55,5 +55,6 @@ namespace Exercise.Data
                 HasKey(iur => iur.RoleId);
             }
         }
+
     }
 }

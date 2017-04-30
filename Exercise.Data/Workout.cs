@@ -22,9 +22,9 @@ namespace Exercise.Data
         public string Intensity { get; set; }
 
         [Required]
-        public int Duration { get; set; }
+        public double Duration { get; set; }
 
-        public int CaloriesBurned { get; set; }
+        public double CaloriesBurned { get; set; }
 
         //Carries timezone info with it
         [Required]

@@ -16,7 +16,7 @@ namespace Exercise.Web.Controllers
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ExerciseService(userId);
-            var model = service.GetWorkouts();
+            var model = service.GetWorkouts();            
 
             return View(model);
         }

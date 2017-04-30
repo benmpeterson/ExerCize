@@ -27,8 +27,17 @@ namespace Exercise.Services
                     Type = model.Type,
                     Intensity = model.Intensity,
                     Duration = model.Duration,
+                    CaloriesBurned = 0,
                     CreatedUtc = DateTimeOffset.UtcNow,
                 };
+
+            if (entity.Type == "Bicycling" && entity.Intensity == "Low")
+            {
+
+                entity.CaloriesBurned = entity.Duration * .0175 * 6.0;  
+                
+            }
+
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Workouts.Add(entity);
@@ -73,6 +82,7 @@ namespace Exercise.Services
                         ExerciseId = entity.ExcerciseId,
                         Type = entity.Type,
                         Intensity = entity.Intensity,
+                        Duration = entity.Duration,
                         CaloritesBurned = entity.CaloriesBurned,
                         Created = entity.CreatedUtc,                       
                     };
