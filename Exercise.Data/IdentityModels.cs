@@ -18,7 +18,16 @@ namespace Exercise.Data
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Sex { get; set; }
+
+        public double Age { get; set; }
+        
+        public double Weight { get; set; }
+
     }
+
+
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

@@ -65,6 +65,14 @@
     <Compile Include="Migrations\201704302205370_ChangedIntsToDouble.Designer.cs">
       <DependentUpon>201704302205370_ChangedIntsToDouble.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704302232146_AddedAgeWeightSexColumns.cs" />
+    <Compile Include="Migrations\201704302232146_AddedAgeWeightSexColumns.Designer.cs">
+      <DependentUpon>201704302232146_AddedAgeWeightSexColumns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704302250158_AddedSexAgeWeightToRegisterView.cs" />
+    <Compile Include="Migrations\201704302250158_AddedSexAgeWeightToRegisterView.Designer.cs">
+      <DependentUpon>201704302250158_AddedSexAgeWeightToRegisterView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Workout.cs" />
     <Compile Include="IdentityModels.cs" />
@@ -83,6 +91,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704302205370_ChangedIntsToDouble.resx">
       <DependentUpon>201704302205370_ChangedIntsToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704302232146_AddedAgeWeightSexColumns.resx">
+      <DependentUpon>201704302232146_AddedAgeWeightSexColumns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704302250158_AddedSexAgeWeightToRegisterView.resx">
+      <DependentUpon>201704302250158_AddedSexAgeWeightToRegisterView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

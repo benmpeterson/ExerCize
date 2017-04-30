@@ -79,6 +79,15 @@ namespace Exercise.Web.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        
+        public string Sex { get; set; }
+
+       
+        public double Age { get; set; } 
+
+        [Required]
+        public double Weight { get; set; }
     }
 
     public class ResetPasswordViewModel
