@@ -48,12 +48,14 @@ namespace Exercise.Web.Models
 
     public class LoginViewModel
     {
-        [Required]
+
+
+        [Required(ErrorMessage = "Wrong Name")]
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wrong Password")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
