@@ -65,5 +65,6 @@ namespace Exercise.Data
             }
         }
 
+        //public System.Data.Entity.DbSet<Workout> ExerciseDetails { get; set; }
     }
 }

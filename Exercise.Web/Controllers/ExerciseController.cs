@@ -15,7 +15,7 @@ namespace Exercise.Web.Controllers
     public class ExerciseController : Controller
     {
 
-        ApplicationDbContext  db = new ApplicationDbContext();
+        //ApplicationDbContext  db = new ApplicationDbContext();
 
         [Authorize]
         public ActionResult Index()
@@ -24,7 +24,6 @@ namespace Exercise.Web.Controllers
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));        
             var currentUser = manager.FindById(User.Identity.GetUserId());
-
             var userWeight = currentUser.Weight;
 
             var service = new ExerciseService(userId, userWeight);
@@ -50,31 +49,48 @@ namespace Exercise.Web.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-
+            var currentUser = manager.FindById(User.Identity.GetUserId());        
             var userWeight = currentUser.Weight;
 
             var service = new ExerciseService(userId, userWeight);
             service.CreateExercise(model);
 
-            return RedirectToAction("Index");
-
-            
+            return RedirectToAction("Index");            
         }
 
         public ActionResult Details(int id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
-
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-
-            var userWeight = currentUser.Weight;
-
-            var service = new ExerciseService(userId, userWeight);
+            var service = new ExerciseService(userId);
             var model = service.GetWorkoutById(id);
 
             return View(model);
         }
+
+        public ActionResult Delete(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new ExerciseService(userId);
+            var model = service.GetWorkoutById(id);
+
+            return View(model);
+
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletePost(int id)
+        {
+            var userId = Guid.Parse(User.Identity.GetUserId());
+            var service = new ExerciseService(userId);            
+
+            service.DeleteExercise(id);
+
+            TempData["SaveResult"] = "Your exercise was deleted";
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

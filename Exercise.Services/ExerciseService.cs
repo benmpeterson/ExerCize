@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Exercise.Data;
+using Exercise.Services.HelperMethods;
 
 
 namespace Exercise.Services
@@ -18,6 +19,12 @@ namespace Exercise.Services
         {
             _userId = userId;
             _userWeightInPounds = userWeightInPounds;
+        }
+
+        public ExerciseService(Guid userId)
+        {
+            _userId = userId;
+         
         }
 
         public bool CreateExercise(ExerciseCreate model)
@@ -34,14 +41,9 @@ namespace Exercise.Services
                     CreatedUtc = DateTimeOffset.UtcNow,
                 };
 
-            if (entity.Type == "Bicycling" && entity.Intensity == "Low")
-            {
-
-                entity.CaloriesBurned = entity.Duration * .0175 * 6.0 * (entity.OwnerWeight / 2.2);
-                entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
-                
-            }
-
+            //ExerciseLogic.GetExercise(entity);
+            CalorieCalculator.GetCalories(entity);
+   
             using (var ctx = new ApplicationDbContext())
             {
                 ctx.Workouts.Add(entity);
@@ -90,6 +92,22 @@ namespace Exercise.Services
                         CaloritesBurned = entity.CaloriesBurned,
                         Created = entity.CreatedUtc,                       
                     };
+            }
+        }
+
+        public bool DeleteExercise(int exerciseId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity =
+                    ctx
+                        .Workouts
+                        .Single(e => e.ExcerciseId == exerciseId && e.OwnerId == _userId);
+
+                //Mark for deletion
+                ctx.Workouts.Remove(entity);
+
+                return ctx.SaveChanges() == 1;
             }
         }
     }
