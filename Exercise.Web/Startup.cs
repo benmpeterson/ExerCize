@@ -32,7 +32,7 @@ namespace Exercise.Web
 
                 //Here we create a Admin user who will maintain the website
                 var user = new ApplicationUser();
-                user.UserName = "admin";
+                user.UserName = "admin@admin.com";
                 user.Email = "admin@admin.com";
 
                 string userPWD = "Password1!";
@@ -44,6 +44,14 @@ namespace Exercise.Web
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
                 }
+            }
+
+            if (!roleManager.RoleExists("User"))
+            {
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "User";
+                roleManager.Create(role);
+
             }
 
         }
