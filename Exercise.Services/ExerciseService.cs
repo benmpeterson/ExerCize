@@ -12,10 +12,12 @@ namespace Exercise.Services
     public class ExerciseService
     {
         private readonly Guid _userId;
+        private readonly Double _userWeightInPounds;
 
-        public ExerciseService(Guid userId)
+        public ExerciseService(Guid userId, Double userWeightInPounds)
         {
             _userId = userId;
+            _userWeightInPounds = userWeightInPounds;
         }
 
         public bool CreateExercise(ExerciseCreate model)
@@ -24,6 +26,7 @@ namespace Exercise.Services
                 new Workout()
                 {
                     OwnerId = _userId,
+                    OwnerWeight = _userWeightInPounds,
                     Type = model.Type,
                     Intensity = model.Intensity,
                     Duration = model.Duration,
@@ -34,7 +37,8 @@ namespace Exercise.Services
             if (entity.Type == "Bicycling" && entity.Intensity == "Low")
             {
 
-                entity.CaloriesBurned = entity.Duration * .0175 * 6.0;  
+                entity.CaloriesBurned = entity.Duration * .0175 * 6.0 * (entity.OwnerWeight / 2.2);
+                entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
                 
             }
 
@@ -52,7 +56,7 @@ namespace Exercise.Services
                 var query =
                     ctx
                         .Workouts
-                        .Where(e => e.OwnerId == _userId)
+                        .Where(e => e.OwnerId == _userId && e.OwnerWeight == _userWeightInPounds)
                         .Select(
                             e => new ExerciseListItem
                             {

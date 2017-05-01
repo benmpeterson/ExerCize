@@ -16,6 +16,9 @@ namespace Exercise.Data
         public Guid OwnerId { get; set; }
 
         [Required]
+        public double OwnerWeight { get; set; }
+
+        [Required]
         public string Type { get; set; }
 
         [Required]

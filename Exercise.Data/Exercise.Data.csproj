@@ -73,6 +73,14 @@
     <Compile Include="Migrations\201704302250158_AddedSexAgeWeightToRegisterView.Designer.cs">
       <DependentUpon>201704302250158_AddedSexAgeWeightToRegisterView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705010119582_TestingWeightMethod.cs" />
+    <Compile Include="Migrations\201705010119582_TestingWeightMethod.Designer.cs">
+      <DependentUpon>201705010119582_TestingWeightMethod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705010127028_TestDbContext.cs" />
+    <Compile Include="Migrations\201705010127028_TestDbContext.Designer.cs">
+      <DependentUpon>201705010127028_TestDbContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Workout.cs" />
     <Compile Include="IdentityModels.cs" />
@@ -97,6 +105,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704302250158_AddedSexAgeWeightToRegisterView.resx">
       <DependentUpon>201704302250158_AddedSexAgeWeightToRegisterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705010119582_TestingWeightMethod.resx">
+      <DependentUpon>201705010119582_TestingWeightMethod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705010127028_TestDbContext.resx">
+      <DependentUpon>201705010127028_TestDbContext.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
