@@ -59,7 +59,7 @@ namespace Exercise.Web.Controllers
             return RedirectToAction("Index");            
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Progress(int id)
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ExerciseService(userId);
@@ -83,6 +83,11 @@ namespace Exercise.Web.Controllers
                 List<string> elist = query2.ToList();
                 ViewBag.intid = elist;
 
+                var query3 = from b in context.Workouts
+                             where b.OwnerId == userId
+                             select b.Duration;
+                List<double> dlist = query3.ToList();
+                ViewBag.durationint = dlist;
             }
 
             

@@ -265,7 +265,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Exercise\Index.cshtml" />
     <Content Include="Views\Exercise\Create.cshtml" />
-    <Content Include="Views\Exercise\Details.cshtml" />
+    <Content Include="Views\Exercise\Progress.cshtml" />
     <Content Include="Views\Exercise\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>

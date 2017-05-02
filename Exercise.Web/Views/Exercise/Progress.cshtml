@@ -5,7 +5,7 @@
 @Scripts.Render("~/bundles/chart.js")
 
 
-<h2>Details</h2>
+<h2>Progress</h2>
 
 
 
@@ -17,14 +17,14 @@
                              {
                                 //new ComplexDataset
                                 //    {
-                                //        Data = new List<double> { 65, 59, 80, 81, 56, 55, 40 },
+                                //        Data = ViewBag.durationint,
                                 //        Label = "My First dataset",
-                                //        FillColor = "rgba(220,220,220,0.2)",
-                                //        StrokeColor = "rgba(220,220,220,1)",
-                                //        PointColor = "rgba(220,220,220,1)",
-                                //        PointStrokeColor = "#fff",
-                                //        PointHighlightFill = "#fff",
-                                //        PointHighlightStroke = "rgba(220,220,220,1)",
+                                //        //FillColor = "rgba(228, 247, 187, 1)",
+                                //        //StrokeColor = "rgba(220,220,220,1)",
+                                //        //PointColor = "rgba(220,220,220,1)",
+                                //        //PointStrokeColor = "#fff",
+                                //        //PointHighlightFill = "#fff",
+                                //        //PointHighlightStroke = "rgba(220,220,220,1)",
                                 //    },
                                 new ComplexDataset
                                     {
@@ -46,7 +46,7 @@
 
 
 
-<div>
+@*<div>
     <h4>ExerciseDetail</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -90,9 +90,9 @@
             @Html.DisplayFor(model => model.Created)
         </dd>
 
-    </dl>
-</div>
+    </dl>*@
+@*</div>*@
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" }) 
+    @Html.ActionLink("Back to List", "Index", new { } , new { @class = "btn btn-primary btn-large" })
 </p>
