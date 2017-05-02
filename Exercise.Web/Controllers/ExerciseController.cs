@@ -1,6 +1,7 @@
 ﻿using Exercise.Data;
 using Exercise.Models;
 using Exercise.Services;
+using Exercise.Services.HelperMethods;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -63,6 +64,20 @@ namespace Exercise.Web.Controllers
             var userId = Guid.Parse(User.Identity.GetUserId());
             var service = new ExerciseService(userId);
             var model = service.GetWorkoutById(id);
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+
+            using (var context = new ApplicationDbContext())
+            {                
+
+                var query = from b in context.Workouts                            
+                            select b.CaloriesBurned;
+                List<double> plist = query.ToList();
+                ViewBag.intArray = plist;
+            }
+
+            
 
             return View(model);
         }

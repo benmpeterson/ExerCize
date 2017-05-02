@@ -42,14 +42,18 @@ namespace Exercise.Services
                 };
 
             //ExerciseLogic.GetExercise(entity);
-            CalorieCalculator.GetCalories(entity);
+            double x = CalorieCalculator.GetCalories(entity);
    
             using (var ctx = new ApplicationDbContext())
             {
-                ctx.Workouts.Add(entity);
+                ctx.Workouts.Add(entity);                
                 return ctx.SaveChanges() == 1;
             }
+
+           
         }
+
+        
 
         public IEnumerable<ExerciseListItem> GetWorkouts()
         {

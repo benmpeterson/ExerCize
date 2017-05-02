@@ -18,5 +18,7 @@ namespace Exercise.Models
         public double CaloritesBurned { get; set; }
 
         public DateTimeOffset Created { get; set; }
+
+        
     }
 }
