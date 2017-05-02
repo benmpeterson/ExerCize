@@ -7,43 +7,76 @@
 
 
 
-@if (ViewBag.displayMenu == "Yes")
-{
-    <h1>Welcome Admin. Now you can create user Role.</h1>
-    <h3>
-        <li>@Html.ActionLink("Manage Role", "Index", "Role")</li>
-    </h3>
-}
-else
-{
-    <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
-} 
 
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+ <!--Navigation bar-->
+
+<!--/ Navigation bar-->
+<!--Modal box-->
+<div class="modal fade" id="login" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content no 1-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center form-title">Login</h4>
+            </div>
+            <div class="modal-body padtrbl">
+
+                <div class="login-box-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+                    <div class="form-group">
+                        <form name="" id="loginForm">
+                            <div class="form-group has-feedback">
+                                <!----- username -------------->
+                                <input class="form-control" placeholder="Username" id="loginid" type="text" autocomplete="off" />
+                                <span style="display:none;font-weight:bold; position:absolute;color: red;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginid"></span><!---Alredy exists  ! -->
+                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <!----- password -------------->
+                                <input class="form-control" placeholder="Password" id="loginpsw" type="password" autocomplete="off" />
+                                <span style="display:none;font-weight:bold; position:absolute;color: grey;position: absolute;padding:4px;font-size: 11px;background-color:rgba(128, 128, 128, 0.26);z-index: 17;  right: 27px; top: 5px;" id="span_loginpsw"></span><!---Alredy exists  ! -->
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="banner">
+    <div class="bg-color">
+        <div class="container">
+            <div class="row">
+                <div class="banner-text text-center col-sm-12">
+                    <div class="text-border">
+                        <h2 class="text-dec">Exercize</h2>
+                    </div>
+                    <div class="intro-para text-center quote">
+                        <p class="big-text">
+                            @if (ViewBag.displayMenu == "Yes")
+                        {
+                        <p>Welcome Admin.</p>
+                        <p>
+                            <li>@Html.ActionLink("View Customer Data", "Index", "Role", new { }, new { @class = "btn" })</li>
+                        </p>
+                        }
+                        else
+                        {
+                            <p>  Welcome @ViewBag.Name </p>
+                            <a href="/Exercise" class="btn">Go To Workouts</a>
+                            } </p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
