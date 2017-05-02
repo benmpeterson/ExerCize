@@ -4,13 +4,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <div class="row col-md-offset-5">
+        
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new {}, new { @class = "btn btn-primary btn-large btn-primary" })
-    @Html.ActionLink("View Progress", "Progress", new { id = 1 }, new { @class = "btn btn-primary btn-large btn-success" })
-    
-</p>
+
+
+<div class="container">
+    <div class="row col-md-offset-4">
+        <div>
+            <h2 class="col-xs-offset-1">Workout Log</h2>
+        </div>
+        <div>
+            @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-large btn-primary " })
+            @Html.ActionLink("View Progress", "Progress", new { id = 1 }, new { @class = "btn btn-primary btn-large btn-success" })
+        </div>
+    </div>
+</div>
+
+<br />
+
 <table class="table">
     <tr>
         <th>

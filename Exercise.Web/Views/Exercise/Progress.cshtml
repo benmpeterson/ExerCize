@@ -40,7 +40,7 @@
                             });
 }
 
-<canvas id="myCanvas" width="600" height="400"></canvas>
+<canvas id="myCanvas" width="940" height="400"></canvas>
 @Html.CreateChart("myCanvas", barChart)
 
 
@@ -92,7 +92,18 @@
 
     </dl>*@
 @*</div>*@
-<p>
+@*<p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" }) 
     @Html.ActionLink("Back to List", "Index", new { } , new { @class = "btn btn-primary btn-large" })
-</p>
+</p>*@
+
+<br />
+<br />
+<div class="container">
+    <div class="row col-md-offset-5">       
+        <div>
+           @Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" })
+           @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary btn-large" })
+        </div>
+    </div>
+</div>
