@@ -71,10 +71,18 @@ namespace Exercise.Web.Controllers
             using (var context = new ApplicationDbContext())
             {                
 
-                var query = from b in context.Workouts                            
+                var query = from b in context.Workouts
+                            where b.OwnerId == userId
                             select b.CaloriesBurned;
                 List<double> plist = query.ToList();
                 ViewBag.intArray = plist;
+
+                var query2 = from b in context.Workouts
+                             where b.OwnerId == userId
+                             select b.Type;
+                List<string> elist = query2.ToList();
+                ViewBag.intid = elist;
+
             }
 
             

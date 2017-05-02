@@ -12,7 +12,7 @@
 
 @{
     var barChart = new LineChart();
-    barChart.ComplexData.Labels.AddRange(new[] { "January", "February", "March", "April", "May", "June", "July" });
+    barChart.ComplexData.Labels.AddRange(ViewBag.intid);
     barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                              {
                                 //new ComplexDataset
