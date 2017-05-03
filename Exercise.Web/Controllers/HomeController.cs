@@ -40,19 +40,40 @@ namespace Exercise.Web.Controllers
             {
                 var user = User.Identity;
                 ApplicationDbContext context = new ApplicationDbContext();
-                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-                var s = UserManager.GetRoles(user.GetUserId());
-                if (s[0].ToString() == "Admin")
+                var usermanager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var p = usermanager.GetEmail(user.GetUserId());
+                if (p != "admin@admin.com")
                 {
-                    return true;
+                    return false;
                 }
                 else
                 {
-                    return false;
+                    return true;
                 }
             }
             return false;
         }
+        
+
+        //public boolean isadminuser()
+        //{
+        //    if (user.identity.isauthenticated)
+        //    {
+        //        var user = user.identity;
+        //        applicationdbcontext context = new applicationdbcontext();
+        //        var usermanager = new usermanager<applicationuser>(new userstore<applicationuser>(context));
+        //        var s = usermanager.getroles(user.getuserid());
+        //        if (s[0].tostring() == "admin")
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return false;
+        //}
 
 
         public ActionResult About()
