@@ -52,28 +52,7 @@ namespace Exercise.Web.Controllers
                 }
             }
             return false;
-        }
-        
-
-        //public boolean isadminuser()
-        //{
-        //    if (user.identity.isauthenticated)
-        //    {
-        //        var user = user.identity;
-        //        applicationdbcontext context = new applicationdbcontext();
-        //        var usermanager = new usermanager<applicationuser>(new userstore<applicationuser>(context));
-        //        var s = usermanager.getroles(user.getuserid());
-        //        if (s[0].tostring() == "admin")
-        //        {
-        //            return true;
-        //        }
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return false;
-        //}
+        }        
 
 
         public ActionResult About()
