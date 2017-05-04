@@ -74,11 +74,7 @@ namespace Exercise.Web.Controllers
                 ViewBag.MaleCount = maleCount;
                 ViewBag.FemaleCount = femaleCount;
 
-            }
-
-             
-
-
+            }            
             return View();
         }
     }

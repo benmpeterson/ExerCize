@@ -69,9 +69,7 @@
             @Html.DisplayFor(modelItem => item.CreatedUTC)
         </td>
         <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.ExcerciseId  })*@ 
-            @*@Html.ActionLink("Details", "Details", new { id = 1})*@ 
-            @*@Html.ActionLink("Delete", "Delete", new { id = item.ExcerciseId })*@
+            @Html.ActionLink("Delete", "Delete", new { id = item.ExcerciseId })
         </td>
     </tr>
 }

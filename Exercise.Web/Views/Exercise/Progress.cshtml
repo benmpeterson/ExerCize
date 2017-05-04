@@ -4,28 +4,14 @@
 @using Chart.Mvc.Extensions
 @Scripts.Render("~/bundles/chart.js")
 
-
 <h2>Progress</h2>
-
-
-
 
 @{
     var barChart = new LineChart();
     barChart.ComplexData.Labels.AddRange(ViewBag.intid);
     barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                              {
-                                //new ComplexDataset
-                                //    {
-                                //        Data = ViewBag.durationint,
-                                //        Label = "My First dataset",
-                                //        //FillColor = "rgba(228, 247, 187, 1)",
-                                //        //StrokeColor = "rgba(220,220,220,1)",
-                                //        //PointColor = "rgba(220,220,220,1)",
-                                //        //PointStrokeColor = "#fff",
-                                //        //PointHighlightFill = "#fff",
-                                //        //PointHighlightStroke = "rgba(220,220,220,1)",
-                                //    },
+                                
                                 new ComplexDataset
                                     {
                                         Data = ViewBag.intArray,
@@ -44,65 +30,11 @@
 @Html.CreateChart("myCanvas", barChart)
 
 
-
-
-@*<div>
-    <h4>ExerciseDetail</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Intensity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Intensity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CaloritesBurned)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CaloritesBurned)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-
-    </dl>*@
-@*</div>*@
-@*<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" }) 
-    @Html.ActionLink("Back to List", "Index", new { } , new { @class = "btn btn-primary btn-large" })
-</p>*@
-
 <br />
 <br />
 <div class="container">
     <div class="row col-md-offset-5">       
-        <div>
-           @*@Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" })*@
+        <div>           
            @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary btn-large" })
         </div>
     </div>
