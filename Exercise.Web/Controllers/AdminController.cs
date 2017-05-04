@@ -20,11 +20,14 @@ namespace Exercise.Web.Controllers
                 var TotalCalories = context.Database.SqlQuery<double>("SELECT CaloriesBurned FROM dbo.Workout").ToList();
                 var TotalCaloriesSum = TotalCalories.Sum();
                 var ListTypeOfWorkouts = context.Database.SqlQuery<string>("SELECT Type FROM dbo.Workout").ToList();
+                var UserGenders = context.Database.SqlQuery<string>("Select Sex FROM dbo.ApplicationUser").ToList();
                 double walkCount = 0;
                 double runCount = 0;
                 double bikeCount = 0;
                 double danceCount = 0;
                 double swimCount = 0;
+                double maleCount = 0;
+                double femaleCount = 0;
 
                 foreach (var item in ListTypeOfWorkouts)
                 {
@@ -50,11 +53,26 @@ namespace Exercise.Web.Controllers
                     }
                 }
 
+                foreach (var sex in UserGenders)
+                {
+                    if (sex == "Male")
+                    {
+                        maleCount = maleCount + 1;
+                    }
+                    if (sex == "Female")
+                    {
+                        femaleCount = femaleCount + 1;
+                    }
+                }
+
                 ViewBag.WalkStat = walkCount;
                 ViewBag.RunStat = runCount;
                 ViewBag.BikeStat = bikeCount;
                 ViewBag.DanceStat = danceCount;
                 ViewBag.SwimStat = swimCount;
+                ViewBag.TotalCalories = TotalCaloriesSum.ToString();
+                ViewBag.MaleCount = maleCount;
+                ViewBag.FemaleCount = femaleCount;
 
             }
 

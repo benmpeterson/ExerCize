@@ -4,33 +4,36 @@
 @using Chart.Mvc.ComplexChart
 @using Chart.Mvc.Extensions
 @using Chart.Mvc.SimpleChart
-@Scripts.Render("~/bundles/chart.js")
 
 
-<h2>Admin</h2>
+@Scripts.Render("~/bundles/Chart")
+@Scripts.Render("~/bundles/jquery")
+<link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+
+
+
+<br />
+
+<h2 class="col-sm-offset-3">Total Customer Database Charts</h2>
 
 
 
 
-@{
-        var barChart = new LineChart();
-        barChart.ComplexData.Labels.AddRange(new[] { "Walking", "Running", "Bicycling", "Dancing", "Swimming" });
+
+
+<div class="container">
+    <div class="row col-md-offset-1">
+    @{
+        <h3 class="col-md-5 col-md-pull-1 text-center">User Genders</h3>
+        <h3 class="col-md-4 col-md-pull-1 text-center" >Activity By Types</h3>
+        var barChart = new BarChart();
+        barChart.ComplexData.Labels.AddRange(new[] { "Male", "Female" });
         barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                              {
-                                //new ComplexDataset
-                                //    {
-                                //        Data = ViewBag.durationint,
-                                //        Label = "My First dataset",
-                                //        //FillColor = "rgba(228, 247, 187, 1)",
-                                //        //StrokeColor = "rgba(220,220,220,1)",
-                                //        //PointColor = "rgba(220,220,220,1)",
-                                //        //PointStrokeColor = "#fff",
-                                //        //PointHighlightFill = "#fff",
-                                //        //PointHighlightStroke = "rgba(220,220,220,1)",
-                                //    },
+
                                 new ComplexDataset
                                     {
-                                        Data = new List<double> {ViewBag.WalkStat, ViewBag.RunStat, ViewBag.RunStat, ViewBag.DanceStat, ViewBag.SwimStat},
+                                        Data = new List<double> {ViewBag.MaleCount, ViewBag.FemaleCount},
                                         Label = "My Second dataset",
                                         FillColor = "rgba(228, 247, 187, 1)",
                                         StrokeColor = "rgba(151,187,205,1)",
@@ -42,29 +45,103 @@
                             });
     }
 
-<canvas id="myCanvas" width="940" height="400"></canvas>
-@{
-    const string Canvas = "DoughnutChart";
-    var chart = new DoughnutChart();
-    chart.ComplexData.Labels.AddRange(FakeComplexChartData.Labels);
-    chart.ComplexData.Datasets.AddRange(FakeComplexChartData.Datasets);
-}
-<h3>@Canvas</h3>
-<canvas id="@Canvas" width="400" height="400"></canvas>
-
-@Html.CreateChart(Canvas, chart)
+    <canvas id="myCanvas" width="350" height="400"></canvas>
+    @Html.CreateChart("myCanvas", barChart)
 
 
 
+    @{
+        const string Canvas = "RadarChart";
+        var complexChart = new RadarChart();
+        complexChart.ComplexData.Labels.AddRange(new[] { "Walking", "Running", "Bicycling", "Dancing", "Swimming" });
+        complexChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+    {
 
 
-<br />
-<br />
-<div class="container">
-    <div class="row col-md-offset-5">
-        <div>
-            @*@Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" })*@
-            @Html.ActionLink("Back to Home", "Index", new { }, new { @class = "btn btn-primary btn-large" })
-        </div>
+          new ComplexDataset
+          {
+              Data = new List<double> { ViewBag.WalkStat, ViewBag.RunStat, ViewBag.RunStat, ViewBag.DanceStat, ViewBag.SwimStat },
+              Label = "My Second dataset",
+              FillColor = "rgba(228, 247, 187, 1)",
+              StrokeColor = "rgba(151,187,205,1)",
+              PointColor = "rgba(151,187,205,1)",
+              PointStrokeColor = "#fff",
+              PointHighlightFill = "#fff",
+              PointHighlightStroke = "rgba(151,187,205,1)",
+          }
+
+    });
+    }
+
+
+    @*<h3>@Canvas</h3>*@
+    <canvas id="@Canvas" width="350" height="400"></canvas>
+    @Html.CreateChart(Canvas, complexChart)
     </div>
 </div>
+<div class="container">
+    <div class="row col-md-offset-2 text-primary">
+        <p>Users have collectivly burned @ViewBag.TotalCalories out of current goal of 10000</p>
+    </div>
+</div>
+
+<div class="progress-wrap">
+    <div class="progress-bar progress">
+        <div class="progress-value progress" data-progress-percent="@ViewBag.TotalCalories">Calories Burned</div>
+    </div>
+    <p class="progress-num"></p>
+</div>
+
+
+
+
+<script type="text/javascript">
+        $(document).ready(function() {
+          moveProgressBar();
+        })
+
+        function moveProgressBar() {
+          $(".progress-value").each(function() {
+            var getPercent = ($(this).data('progress-percent') / 10000);
+            var getProgressBarWidth = $(this).parents('.progress-bar').width();
+            var progressTotal = getPercent * getProgressBarWidth;
+    
+            //progress number
+            
+    
+            //progress color
+            if(0 <= getPercent * 100 && getPercent * 100 < 20){
+              $(this).css("background-color","#f12f13");
+            } else if ( 20 <= getPercent * 100 && getPercent * 100 < 40){
+              $(this).css("background-color","#f78b1c");
+            } else if ( 40 <= getPercent * 100 && getPercent * 100 < 60){
+              $(this).css("background-color","#ffcc00");
+            } else if ( 60 <= getPercent * 100 && getPercent * 100 < 80){
+              $(this).css("background-color","#33cc66");
+            } else {
+              $(this).css("background-color","#007aff");
+            }
+    
+            $(this).stop().animate({
+              width : progressTotal
+            }, 1000);
+          });
+        }
+</script>
+
+
+    <br />
+
+    <div class="container">
+        <div class="row col-md-offset-4">
+            <div>
+                @*@Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" })*@
+                @Html.ActionLink("Back to Home", "Index", new { }, new { @class = "btn btn-primary btn-large" })
+            </div>
+        </div>
+    </div>
+
+
+
+
+

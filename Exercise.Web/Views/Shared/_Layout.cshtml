@@ -6,8 +6,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/Chart")
-    <script src="js/Chart.js" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/Chart")    
     <link rel="stylesheet" type="text/css" href="~/Content/Templates/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Templates/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/Templates/css/imagehover.min.css">
@@ -71,14 +70,14 @@
         </div>
     </footer>
 
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/custom.js"></script>    
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="contactform/contactform.js"></script>
+    
 
 </body>
 </html>

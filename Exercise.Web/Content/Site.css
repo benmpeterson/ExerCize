@@ -30,3 +30,36 @@ ul{
 li{
     list-style-type: none;
 }
+
+.progress {
+    width: 100%;
+    height: 100%;
+}
+
+.progress-wrap {
+    position: relative;
+    width: 90%;
+    height: 30px;
+}
+
+.progress-bar {
+    background: #ececec;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.progress-value {
+    width: 1px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.progress-num {
+    position: absolute;
+    top: 0px;
+    right: -5%;
+    font-size: 20px;
+}
