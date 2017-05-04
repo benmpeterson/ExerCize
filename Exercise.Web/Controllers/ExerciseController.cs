@@ -29,49 +29,8 @@ namespace Exercise.Web.Controllers
 
             var service = new ExerciseService(userId, userWeight);
             var model = service.GetWorkouts();
-
-            using (var context = new ApplicationDbContext())
-            {
-                var blogs = context.Database.SqlQuery<string>("SELECT Id FROM dbo.ApplicationUser").ToList();                                
-                var TotalCalories = context.Database.SqlQuery<double>("SELECT CaloriesBurned FROM dbo.Workout").ToList();
-                var TotalCaloriesSum = TotalCalories.Sum();
-                var ListTypeOfWorkouts = context.Database.SqlQuery<string>("SELECT Type FROM dbo.Workout").ToList();
-                int walkCount = 0;
-                int runCount = 0;
-                int bikeCount = 0;
-                int danceCount = 0;
-                int swimCount = 0;
-
-                foreach (var item in ListTypeOfWorkouts)
-                {
-                    if (item == "Walking")
-                    {
-                        walkCount = walkCount + 1;
-                    }
-                    else if (item == "Running")
-                    {
-                        runCount = runCount + 1;
-                    }
-                    else if (item == "Bicycling")
-                    {
-                        bikeCount = danceCount + 1;
-                    }
-                    else if (item == "Dancing")
-                    {
-                        danceCount = danceCount + 1;
-                    }
-                    else if (item == "Swimming")
-                    {
-                        swimCount = swimCount + 1;
-                    }
-                }
-            }
-
-            
-
+                       
             return View(model);
-
-
 
         }
 
