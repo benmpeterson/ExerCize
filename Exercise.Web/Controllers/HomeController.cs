@@ -13,6 +13,11 @@ namespace Exercise.Web.Controllers
     {
         public ActionResult Index()
         {
+            if(!User.Identity.IsAuthenticated)
+            {
+                ViewBag.displayMenu = "Login";
+            }
+
             if (User.Identity.IsAuthenticated)
             {
                 var user = User.Identity;
@@ -22,7 +27,7 @@ namespace Exercise.Web.Controllers
 
                 if (isAdminUser())
                 {
-                    ViewBag.displayMenu = "Yes";
+                    ViewBag.displayMenu = "Yes";                    
                 }
                 return View();
             }

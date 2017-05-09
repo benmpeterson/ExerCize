@@ -19,18 +19,25 @@
                         <h2 class="text-dec">Exercize</h2>
                     </div>
                     <div class="intro-para text-center quote">
-                        <p class="big-text">
+                        
                             @if (ViewBag.displayMenu == "Yes")
                         {
                         <p>Welcome Admin.</p>
-                        <p>
+                        
                             <li>@Html.ActionLink("View Customer Data", "CustomerData", "Admin", new { }, new { @class = "btn" })</li>
-                        </p>
+                        
                         }
-                        else
-                        {
-                            <p>  Welcome </p>                            
-                            <a href="/Exercise" class="btn">Go To Workouts</a>
+                            else if (ViewBag.displayMenu == "No")
+                            {
+                                <p>Welcome User</p>
+                                <p>
+                                    <li>@Html.ActionLink("Go To Workouts", "Index", "Exercise", new { }, new { @class = "btn" })</li>
+                                </p>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Login", "Login", "Account", new { }, new { @class = "btn" })</li>
+                                                        
                             } </p>                        
                     </div>
                 </div>

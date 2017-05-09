@@ -1,16 +1,21 @@
 ﻿@model Exercise.Web.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
+<h2>Login Credentials.</h2>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {
         <div>
-            <p>
-                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support logging in via external services.
-            </p>
+            
+                <h5>Login as Admin </h5>
+                <p>Admin - admin@admin.com </p>
+                <p>Password - Password1! </p>
+                <h5>Login as a User </h5>
+                <p>User - user@user.com </p>
+                <p>Password - Password1! </p>
+                <h5>Or register as your own user</h5>
+            
         </div>
     }
     else {
