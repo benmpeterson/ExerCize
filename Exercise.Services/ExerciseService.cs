@@ -41,8 +41,8 @@ namespace Exercise.Services
                     CreatedUtc = DateTimeOffset.UtcNow,
                 };
 
-            //ExerciseLogic.GetExercise(entity);
-            double x = CalorieCalculator.GetCalories(entity);
+            
+            CalorieCalculator.GetCalories(entity);
    
             using (var ctx = new ApplicationDbContext())
             {

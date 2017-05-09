@@ -75,19 +75,13 @@ namespace Exercise.Web.Controllers
                             where b.OwnerId == userId
                             select b.CaloriesBurned;
                 List<double> plist = query.ToList();
-                ViewBag.intArray = plist;
+                ViewBag.caloriesBurned = plist;
 
                 var query2 = from b in context.Workouts
                              where b.OwnerId == userId
                              select b.Type;
                 List<string> elist = query2.ToList();
-                ViewBag.intid = elist;
-
-                var query3 = from b in context.Workouts
-                             where b.OwnerId == userId
-                             select b.Duration;
-                List<double> dlist = query3.ToList();
-                ViewBag.durationint = dlist;
+                ViewBag.type = elist;
             }
 
 

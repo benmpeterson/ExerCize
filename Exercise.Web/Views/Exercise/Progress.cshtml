@@ -8,13 +8,13 @@
 
 @{
     var barChart = new LineChart();
-    barChart.ComplexData.Labels.AddRange(ViewBag.intid);
+    barChart.ComplexData.Labels.AddRange(ViewBag.type);
     barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
                              {
                                 
                                 new ComplexDataset
                                     {
-                                        Data = ViewBag.intArray,
+                                        Data = ViewBag.caloriesBurned,
                                         Label = "My Second dataset",
                                         FillColor = "rgba(228, 247, 187, 1)",
                                         StrokeColor = "rgba(151,187,205,1)",
