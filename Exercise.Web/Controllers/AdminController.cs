@@ -15,10 +15,10 @@ namespace Exercise.Web.Controllers
         public ActionResult CustomerData()
         {
             using (var context = new ApplicationDbContext())
-            {
-                var blogs = context.Database.SqlQuery<string>("SELECT Id FROM dbo.ApplicationUser").ToList();
+            {                
                 var TotalCalories = context.Database.SqlQuery<double>("SELECT CaloriesBurned FROM dbo.Workout").ToList();
                 var TotalCaloriesSum = TotalCalories.Sum();
+
                 var ListTypeOfWorkouts = context.Database.SqlQuery<string>("SELECT Type FROM dbo.Workout").ToList();
                 var UserGenders = context.Database.SqlQuery<string>("Select Sex FROM dbo.ApplicationUser").ToList();
                 double walkCount = 0;
@@ -33,23 +33,23 @@ namespace Exercise.Web.Controllers
                 {
                     if (item == "Walking")
                     {
-                        walkCount = walkCount + 1;
+                        walkCount++;
                     }
                     else if (item == "Running")
                     {
-                        runCount = runCount + 1;
+                        runCount++;
                     }
                     else if (item == "Bicycling")
                     {
-                        bikeCount = danceCount + 1;
+                        bikeCount++;
                     }
                     else if (item == "Dancing")
                     {
-                        danceCount = danceCount + 1;
+                        danceCount++;
                     }
                     else if (item == "Swimming")
                     {
-                        swimCount = swimCount + 1;
+                        swimCount++;
                     }
                 }
 
@@ -57,11 +57,11 @@ namespace Exercise.Web.Controllers
                 {
                     if (sex == "Male")
                     {
-                        maleCount = maleCount + 1;
+                        maleCount++;
                     }
                     if (sex == "Female")
                     {
-                        femaleCount = femaleCount + 1;
+                        femaleCount++;
                     }
                 }
 
@@ -70,10 +70,9 @@ namespace Exercise.Web.Controllers
                 ViewBag.BikeStat = bikeCount;
                 ViewBag.DanceStat = danceCount;
                 ViewBag.SwimStat = swimCount;
-                ViewBag.TotalCalories = TotalCaloriesSum.ToString();
                 ViewBag.MaleCount = maleCount;
                 ViewBag.FemaleCount = femaleCount;
-
+                ViewBag.TotalCalories = TotalCaloriesSum.ToString();
             }            
             return View();
         }

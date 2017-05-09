@@ -96,10 +96,7 @@
             var getPercent = ($(this).data('progress-percent') / 10000);
             var getProgressBarWidth = $(this).parents('.progress-bar').width();
             var progressTotal = getPercent * getProgressBarWidth;
-    
-            //progress number
             
-    
             //progress color
             if(0 <= getPercent * 100 && getPercent * 100 < 20){
               $(this).css("background-color","#f12f13");
@@ -126,7 +123,6 @@
     <div class="container">
         <div class="row col-md-offset-4">
             <div>
-                @*@Html.ActionLink("Edit", "Edit", new { id = Model.ExerciseId }, new { @class = "btn btn-primary btn-large btn-danger" })*@
                 @Html.ActionLink("Back to Home", "Index", "Home", new { }, new { @class = "btn btn-primary btn-large" })
             </div>
         </div>

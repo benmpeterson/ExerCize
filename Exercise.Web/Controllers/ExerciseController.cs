@@ -60,42 +60,6 @@ namespace Exercise.Web.Controllers
             return RedirectToAction("Index");            
         }
 
-        public ActionResult ProgressOrNot(int id)
-        {
-            var userId = Guid.Parse(User.Identity.GetUserId());
-            var service = new ExerciseService(userId);
-            var model = service.GetWorkoutById(id);
-
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-            var currentUser = manager.FindById(User.Identity.GetUserId());
-
-            using (var context = new ApplicationDbContext())
-            {                
-
-                var query = from b in context.Workouts
-                            where b.OwnerId == userId
-                            select b.CaloriesBurned;
-                List<double> plist = query.ToList();
-                ViewBag.intArray = plist;
-
-                var query2 = from b in context.Workouts
-                             where b.OwnerId == userId
-                             select b.Type;
-                List<string> elist = query2.ToList();
-                ViewBag.intid = elist;
-
-                var query3 = from b in context.Workouts
-                             where b.OwnerId == userId
-                             select b.Duration;
-                List<double> dlist = query3.ToList();
-                ViewBag.durationint = dlist;
-            }
-
-            
-
-            return View(model);
-        }
-
         public ActionResult Progress()
         {
             var userId = Guid.Parse(User.Identity.GetUserId());
