@@ -1,11 +1,11 @@
-ExerCize is a MVC portfolio project that logs user workouts and calculates how many calories are burned during each activity. The app was created to solve a set of common web development problems inclduing setting up admin and user Roles, querying user information from a Database, and displaying the queried information visually. The techniques to solve these problems are described in detail below.
+ExerCize is a MVC portfolio project that logs user workouts and calculates how many calories are burned during each activity. The app was created to solve a set of common web development problems including setting up admin and user roles, querying user information from a Database, and displaying the queried information visually. The techniques to solve these problems are described in detail below.
 
-## Libraries and Resources 
+## Libraries and Resources Used 
 
 - [Chart.Mvc](https://github.com/martinobordin/Chart.Mvc) - A .NET wrapper to generate charts using the popular Chart.Js V1 library (http://www.chartjs.org).
-- [SYEDSHAUNU](https://code.msdn.microsoft.com/ASPNET-MVC-5-Security-And-44cbdb97) - Great Tutorial on setting up an Admin User Role written by a Microsoft MVP.
+- [SYEDSHAUNU](https://code.msdn.microsoft.com/ASPNET-MVC-5-Security-And-44cbdb97) - Great Tutorial on setting up an admin user role written by a Microsoft MVP.
 - [Scott Allen - LINQ Fundamentals](https://app.pluralsight.com/library/courses/linq-fundamentals-csharp-6/table-of-contents) - Great course on querying a database using LINQ
-- [Calorie Equation](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) - This was the study I used to calculate the calories burned with each activity
+- [Calorie Equation](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) - This was the study I used to calculate the calories burned with each workout
 
 
 ## How to use this Application.
@@ -14,7 +14,7 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
  
 2. Click Login. 
 
-3. The application runs differently depending on wether you log in as an admin or user. Login credentials for both are on the right side of this page
+3. The application runs differently depending on whether you log in as an admin or user. Login credentials for both are on the right side of login page
 
 4. If logged in as an admin select View Customer Data, if logged in as a user try to create a Workout or view Progress!
 
@@ -122,7 +122,7 @@ Since this application behaves differently if you are logged in as the Admininst
                 }        
 ```
 
-3. Once the ViewBags have been setup, implement them in the Home/Index View as shown
+3. Once the ViewBags have been set, implement them in the Home/Index View as shown
 
 ```cs
         <div class="banner">
@@ -166,8 +166,8 @@ Now depending on the login information your home view and action options are mod
 ## Workouts 
 [demo](#user-workout)
 
-The next stage of this project was to be able to create a user and have them enter in Workouts which results in an estimated calories burned. 
-Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) I am able to calucalte this for a set of activities using their formula
+The next problem of this project was having the ability as a user to create a workout which calculates an estimatation of burned calories. 
+I found the calculation for this [here](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp)
 
 **Energy expenditure (calories/minute) = .0175 x Activity (from table) x weight (in kilograms)**
 
@@ -406,16 +406,16 @@ Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise
         }
 
 ```
-This is taking the available types of activies along with intensity and user wight to calculate how many calories are burned. Notice it is dividing the OwnerWeight by 2.2. This is convert it to kilograms which is the variable used in the study's formula. 
+This is taking the available types of activies, along with intensity and user wight to calculate how many calories are burned. Notice it is dividing the OwnerWeight by 2.2. This is convert it to kilograms which is the variable used in the study's formula. 
 
-6. Thats it! Now for each new workout created by any user, a calorie burned calculation is taking place, stored to the database and display in their list of work outs. 
+6. Thats it! Now for each new workout created by any user, a calorie burned calculation is taking place, stored to the database and displayed in their list of work outs. 
             
 ## Charts
 [demo](#charts)
 
-The last challenge of this application was to visually represent data for both the user and admin roles. This was done by implementing Chart.MVC a great, if a bit outdated, extenstion that makes working with chart.js a bit more C# friendly. Using this method I was able to create bar, line and radial graphs that represented different database query results. 
+The last challenge of this application was to visually represent data for both the user and admin roles. This was done by implementing Chart.MVC, a great, if a bit outdated, extenstion that makes working with chart.js a bit more C# friendly. Using it I was able to create bar, line and radial graphs that represented different database query results. 
 
-1. The first set of these queries was to show each user a line graph of their workouts with how many calories were burned of each. Notice they are LINQ queries. Here is what I added to my Exercise Controller. 
+1. The first set of these queries was to show each user a line graph of their workouts with how many calories were burned of each. Notice these are LINQ queries. Here is what I added to my Exercise Controller. 
 
 ```cs
 
@@ -448,7 +448,7 @@ The last challenge of this application was to visually represent data for both t
                 }
 ```
 
-2. With the type of workouts and how many calories burned were burned in each stored in their respective ViewBags, I next tied that to the Progress View as shown here. Notice the using statements as this is how Chart.Mvc is implemented
+2. With the type of workouts and how many calories were burned in each stored in their respective ViewBags, I next tied that to the Progress View as shown here. Notice the using statements as this is how Chart.Mvc is implemented
 
 ```cs
         @model Exercise.Models.ExerciseDetail
