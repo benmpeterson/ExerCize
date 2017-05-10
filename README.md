@@ -1,37 +1,73 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+This project was bootstrapped with [BOOTSTRAPMADE](https://bootstrapmade.com/mentor-free-education-bootstrap-theme/).
 
 
-This is a collection of demos of React.js. These demos are purposely written in a simple and clear style for students to learn React.js. These code examples come from various sources, and those sources are cited in various places. 
+ExerCize is a MVC portfolio project that logs user workouts and calculates how many calories are burned during each activity. The app was created to solve a set of common web development problems inclduing setting up Admin and User Roles, collecting user information from a Database, and displaying the gathered information visually. The techniques to solve these problems are described in detail below.
 
-## Special Thanks & Sweet Projects
+## Libraries and Resources 
 
-- [Create React App]() - Boilerplate code for gettings started.
-- [Stephen Grider]() - Excellent Udemy Courses on React. The Youtube api code is mostly his.
-- [React Docs]() - Solid 
-- [React Router Tutorial](https://github.com/reactjs/react-router-tutorial)
+- [Chart.Mvc](https://github.com/martinobordin/Chart.Mvc) - A .NET wrapper to generate charts using the popular Chart.Js V1 library (http://www.chartjs.org).
+- [SYEDSHAUNU](https://code.msdn.microsoft.com/ASPNET-MVC-5-Security-And-44cbdb97) - Great Tutorial on setting up an Admin User Role written by a Microsoft MVP.
+- [Scott Allen - LINQ Fundamentals](https://app.pluralsight.com/library/courses/linq-fundamentals-csharp-6/table-of-contents) - Great course on querying a database using LINQ
 
-## How to use this repo.
 
-1. First clone the repo.
-  git clone theurl TODO: Add the url.
+## How to use this Application.
 
-2. On the command line CD into the react-library repo. 
+1. Launch the [App](https://www.addthisurlwhenhosted.com).
+ 
+2. Click Login. 
 
-3. Run a dir to make sure that the package.json is visible.
+3. The application runs differently depending on wether you log in as an admin or user. Login credentials for both are on the right side of this page
 
-4. Run npm install.
+4. If logged in as an admin select View Customer Data, if logged in as a user, try to create a Workout of view Progress!
 
 ## Index
 
-1. [Class Components](#class-components)
+1. [Setting up an Admin Role](#admin-role)
 
 ---
 
 ## Demo01: Class Components
 
-[demo](class-components) / [source](https://github.com/jpauloconnor/react-library/blob/master/src/components/Demo_01.js)
+[demo](admin-role) 
 
-1. Class Components
+Since this application behaves differently if you are logged in as the Admininstrator it is important to see how to implement this utilizing the already in place user authentification services in the .NET FrameWork. In order to the boilerplate code when creating your MVC project make sure to select "Single User Authenticication"
+
+1. How to create and populare a User admin role. You need to add this to the Startup.cs file and add this
+		```cs
+        private void createRolesandUsers()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+
+            if (!roleManager.RoleExists("Admin"))
+            {
+                //Creates Admin roll
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+
+                //Populate Admin User
+                var user = new ApplicationUser();
+                user.UserName = "admin@admin.com";
+                user.Email = "admin@admin.com";
+
+                string userPWD = "Password1!";
+
+                var chkUser = UserManager.Create(user, userPWD);
+
+                //Add User to Role Admin
+                if (chkUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+                }
+		```
+            
+
+
+
 ```js
 import React from 'react';
 import {Component} from 'react';
@@ -53,16 +89,10 @@ export default class HelloWorld extends Component {
 
 Functional Components
 
-```js
-import React from 'react';
+```cs
+int = 3;
 
-const ReusableButton = function(props){
-  return(
-    <button>{props.label}</button>
-  );
-};
 
-export default ReusableButton;
 ```
 And here we have our App, where we can create many instances of the component, while passing any different props. Don't forget to import the component!
 
