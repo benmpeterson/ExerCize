@@ -32,7 +32,7 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 Since this application behaves differently if you are logged in as the Admininstrator it is important to see how to implement this utilizing the already in place user authentification services in the .NET FrameWork. In order to the boilerplate code when creating your MVC project make sure to select "Single User Authenticication"
 
-1. How to create and populare a User admin role. You need to add this to the Startup.cs file
+1. How to create and populare a User admin role. You need to add this to the Startup.cs file and add this
 		```cs
         private void createRolesandUsers()
         {
