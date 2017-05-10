@@ -484,7 +484,7 @@ The last challenge of this application was to visually represent data for both t
 ```
 
 3. You should now see a chart with these values. Here is what a sample one of mine looks like. 
-[![userprogresschart.jpg](https://s15.postimg.org/4dhxg3my3/userprogresschart.jpg)](https://postimg.org/image/dy1k2zc9z/)
+[![UserChart.jpg](https://s17.postimg.org/l9ouz19e7/User_Chart.jpg)](https://postimg.org/image/l9ouz19e3/)
 
 4. The next query was used to show the admin how many times each category of activity was created for all users as a radar chart. Here is what I added to my Admin Controller. Notice that this is a SQL query. 
 
@@ -591,7 +591,7 @@ The last challenge of this application was to visually represent data for both t
         </div>
 ```
 7. You should now see a radar chart, here is an example chart of for my admin
-[![adminchart.jpg](https://s28.postimg.org/ayf63xc8t/adminchart.jpg)](https://postimg.org/image/cq84ytvll/)
+[![AdminChart.jpg](https://s22.postimg.org/g43zh8j0x/Admin_Chart.jpg)](https://postimg.org/image/5ha6btavh/)
 
 ## Conclusion
 
