@@ -20,9 +20,9 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 ## Index
 
-* 1. [Setting up an Admin Role](#Admin)
-* 2. [Creating a User Workout](#workouts)
-* 3. [Displaying Database Infomration](#charts)
+* [Setting up an Admin Role](#Admin)
+* [Creating a User Workout](#workouts)
+* [Creating Charts](#charts)
 
 ---
 
