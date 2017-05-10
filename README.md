@@ -16,7 +16,7 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 3. The application runs differently depending on wether you log in as an admin or user. Login credentials for both are on the right side of this page
 
-4. If logged in as an admin select View Customer Data, if logged in as a user, try to create a Workout of view Progress!
+4. If logged in as an admin select View Customer Data, if logged in as a user try to create a Workout or view Progress!
 
 ## Index
 
@@ -484,12 +484,114 @@ The last challenge of this application was to visually represent data for both t
 ```
 
 3. You should now see a chart with these values. Here is what a sample one of mine looks like. 
-[![userchart.jpg](https://s24.postimg.org/mufetmcr9/userchart.jpg)](https://postimg.org/image/afsmtal8x/)
+[![userprogresschart.jpg](https://s15.postimg.org/4dhxg3my3/userprogresschart.jpg)](https://postimg.org/image/dy1k2zc9z/)
+
+4. The next query was used to show the admin how many times each category of activity was created for all users as a radar chart. Here is what I added to my Admin Controller. Notice that this is a SQL query. 
+
+```cs
+
+        public ActionResult CustomerData()
+                {
+                    using (var context = new ApplicationDbContext())
+                    {                
+                                               
+                        var ListTypeOfWorkouts = context.Database.SqlQuery<string>("SELECT Type FROM dbo.Workout").ToList();
+                        
+                        double walkCount = 0;
+                        double runCount = 0;
+                        double bikeCount = 0;
+                        double danceCount = 0;
+                        double swimCount = 0;
+                        double maleCount = 0;
+                        double femaleCount = 0;
+
+```
+5. Once the query is complete it stores all the results in a ListTypeOfWorkouts variable. I then created a for each loop to parse through the list and store each category of activity in its own variable. And finally set each category variable to a viewbag.
+
+```cs
+
+        foreach (var item in ListTypeOfWorkouts)
+        {
+            if (item == "Walking")
+            {
+                walkCount++;
+            }
+            else if (item == "Running")
+            {
+                runCount++;
+            }
+            else if (item == "Bicycling")
+            {
+                bikeCount++;
+            }
+            else if (item == "Dancing")
+            {
+                danceCount++;
+            }
+            else if (item == "Swimming")
+            {
+                swimCount++;
+            }
+        }
+
+        ViewBag.WalkStat = walkCount;
+        ViewBag.RunStat = runCount;
+        ViewBag.BikeStat = bikeCount;
+        ViewBag.DanceStat = danceCount;
+        ViewBag.SwimStat = swimCount;
+        ViewBag.MaleCount = maleCount;
+        ViewBag.FemaleCount = femaleCount;
+        ViewBag.TotalCalories = TotalCaloriesSum.ToString();
+    }            
+    return View();
+```
+6. With this information in the ViewBags we can then implement them into the view and construct the radar graph. Injecting the viewbags into the data list field.
+
+```cs
+
+        @model Exercise.Models.ExerciseDetail
 
 
+        @using Chart.Mvc.ComplexChart
+        @using Chart.Mvc.Extensions
+        @using Chart.Mvc.SimpleChart
 
 
+        @Scripts.Render("~/bundles/Chart")
+        @Scripts.Render("~/bundles/jquery")
+        <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
 
+        
+            @{
+                const string Canvas = "RadarChart";
+                var complexChart = new RadarChart();
+                complexChart.ComplexData.Labels.AddRange(new[] { "Walking", "Running", "Bicycling", "Dancing", "Swimming" });
+                complexChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+            {
+
+
+                  new ComplexDataset
+                  {
+                      Data = new List<double> { ViewBag.WalkStat, ViewBag.RunStat, ViewBag.RunStat, ViewBag.DanceStat, ViewBag.SwimStat },
+                      Label = "My Second dataset",
+                      FillColor = "rgba(228, 247, 187, 1)",
+                      StrokeColor = "rgba(151,187,205,1)",
+                      PointColor = "rgba(151,187,205,1)",
+                      PointStrokeColor = "#fff",
+                      PointHighlightFill = "#fff",
+                      PointHighlightStroke = "rgba(151,187,205,1)",
+                  }
+
+            });
+            }
+            
+            <canvas id="@Canvas" width="350" height="400"></canvas>
+            @Html.CreateChart(Canvas, complexChart)
+            </div>
+        </div>
+```
+7. You should now see a radar chart, here is an example chart of for my admin
+[![adminchart.jpg](https://s28.postimg.org/ayf63xc8t/adminchart.jpg)](https://postimg.org/image/cq84ytvll/)
 
 
 [demo](class-components) / [source](https://github.com/jpauloconnor/react-library/blob/master/src/components/Demo_01.js)
