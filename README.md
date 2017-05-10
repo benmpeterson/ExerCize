@@ -1,6 +1,3 @@
-This project was bootstrapped with [BOOTSTRAPMADE](https://bootstrapmade.com/mentor-free-education-bootstrap-theme/).
-
-
 ExerCize is a MVC portfolio project that logs user workouts and calculates how many calories are burned during each activity. The app was created to solve a set of common web development problems inclduing setting up Admin and User Roles, collecting user information from a Database, and displaying the gathered information visually. The techniques to solve these problems are described in detail below.
 
 ## Libraries and Resources 
@@ -25,10 +22,11 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 1. [Setting up an Admin Role](#admin-role)
 2. [Creating a User Workout](#user-workout)
+3. [Displaying Database Infomration](#chart-mvc)
 
 ---
 
-## Demo01: Creating The Admin Role
+## Creating The Admin Role
 
 [demo](admin-role) 
 
@@ -165,13 +163,13 @@ Since this application behaves differently if you are logged in as the Admininst
 ```
 Now depending on the login information your home view and action options are modified, great!
 
-## Demo02 : User Workouts 
+## User Workouts 
 [demo](#user-workout)
 
 The next stage of this project was to be able to create a user and have them enter in Workouts which results in an estimated calories burned. 
-Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp).I am able to calucalte this for a set of activities using their formula
+Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) I am able to calucalte this for a set of activities using their formula
 
-**Energy expenditure (calories/minute) = .0175 x Activity (from table) x weight(in kilograms)**
+**Energy expenditure (calories/minute) = .0175 x Activity (from table) x weight (in kilograms)**
 
 1.To cacluate this for each user we must have them enter in their weight during registration. To do this I added the following to the RegisterViewModel
 
@@ -253,7 +251,7 @@ Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise
             </div>
 ```
 
-3. This ensures that each user will have their assoicated weight in the database. The next thing we must do is retreive that weight each time we are creating a new workout. This is done in the Exercise Controller but creating a new UserManager instance that contains all the database row infomation of the currently logged in user. 
+3. This ensures that each user will have their assoicated weight in the database. The next thing we must do is retreive that weight each time we are creating a new workout. This is done in the Exercise Controller by creating a new UserManager instance that contains all the database row infomation of the currently logged in user. 
 
 ```cs
 
@@ -328,7 +326,7 @@ Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise
 ``` 
 5. Notice here magic is happening with CalorieCalculator.GetCalorites(entity) to get the calories burned, but is it real magic? NO! Lets look at the method. 
 
-cs```
+```cs
 
         namespace Exercise.Services.HelperMethods
 
@@ -406,30 +404,93 @@ cs```
 
             }
         }
-```
-This is taking the available types of activies along with intensity and user wight to calculate how many calories are burned. Notice it is divinding the OwnerWeight by 2.2. This is convert it to kilograms which is the variable used in the studies formula. 
 
-6. Thats in! Now for each new workout created for any user, a calorie burned calculation is taking place and stored to the database. 
+```
+This is taking the available types of activies along with intensity and user wight to calculate how many calories are burned. Notice it is dividing the OwnerWeight by 2.2. This is convert it to kilograms which is the variable used in the study's formula. 
+
+6. Thats it! Now for each new workout created by any user, a calorie burned calculation is taking place, stored to the database and display in their list of work outs. 
             
+## Displaying User Information
+[demo](#chart-mvc)
+
+The last challenge of this application was to visually represent data for both the user and admin roles. This was done by implementing Chart.MVC a great, if a bit outdated, extenstion that makes working with chart.js a bit more C# friendly. Using this method I was able to create bar, line and radial graphs that represented different database query results. 
+
+1. The first set of these queries was to show each user a line graph of their workouts with how many calories were burned of each. Notice they are LINQ queries. Here is what I added to my Exercise Controller. 
+
+```cs
+
+        public ActionResult Progress()
+                {
+                    var userId = Guid.Parse(User.Identity.GetUserId());
+                    var service = new ExerciseService(userId);            
+
+                    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    var currentUser = manager.FindById(User.Identity.GetUserId());
+
+                    using (var context = new ApplicationDbContext())
+                    {
+
+                        var query = from b in context.Workouts
+                                    where b.OwnerId == userId
+                                    select b.CaloriesBurned;
+                        List<double> plist = query.ToList();
+                        ViewBag.caloriesBurned = plist;
+
+                        var query2 = from b in context.Workouts
+                                     where b.OwnerId == userId
+                                     select b.Type;
+                        List<string> elist = query2.ToList();
+                        ViewBag.type = elist;
+                    }
 
 
-
-```js
-import React from 'react';
-import {Component} from 'react';
-
-export default class HelloWorld extends Component {
-  render(){
-    return(
-      <div>Hello World</div>
-    );
-  }
-}
+                    return View();
+                }
 ```
 
+2. With the type of workouts and how many calories burned were burned in each stored in their respective ViewBags, I next tied that to the Progress View as shown here. Notice the using statements as this is how Chart.Mvc is implemented
+
+```cs
+        @model Exercise.Models.ExerciseDetail
+
+        @using Chart.Mvc.ComplexChart;
+        @using Chart.Mvc.Extensions
+        @Scripts.Render("~/bundles/chart.js")
+
+        <h2>Progress</h2>
+
+        @{
+            var barChart = new LineChart();
+            barChart.ComplexData.Labels.AddRange(ViewBag.type);
+            barChart.ComplexData.Datasets.AddRange(new List<ComplexDataset>
+                                     {
+                                        
+                                        new ComplexDataset
+                                            {
+                                                Data = ViewBag.caloriesBurned,
+                                                Label = "My Second dataset",
+                                                FillColor = "rgba(228, 247, 187, 1)",
+                                                StrokeColor = "rgba(151,187,205,1)",
+                                                PointColor = "rgba(151,187,205,1)",
+                                                PointStrokeColor = "#fff",
+                                                PointHighlightFill = "#fff",
+                                                PointHighlightStroke = "rgba(151,187,205,1)",
+                                            }
+                                    });
+        }
+
+        <canvas id="myCanvas" width="940" height="400"></canvas>
+        @Html.CreateChart("myCanvas", barChart)
+```
+
+3. You should now see a chart with these values. Here is what a sample one of mine looks like. 
+[![userchart.jpg](https://s24.postimg.org/mufetmcr9/userchart.jpg)](https://postimg.org/image/afsmtal8x/)
 
 
-## Demo03: Functional Components with Props
+
+
+
+
 
 [demo](class-components) / [source](https://github.com/jpauloconnor/react-library/blob/master/src/components/Demo_01.js)
 
