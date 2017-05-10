@@ -23,16 +23,17 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 ## Index
 
 1. [Setting up an Admin Role](#admin-role)
+2. [Creating a user WorkOut](#user-workout)
 
 ---
 
-## Demo01: Class Components
+## Demo01: Admin Role
 
 [demo](admin-role) 
 
 Since this application behaves differently if you are logged in as the Admininstrator it is important to see how to implement this utilizing the already in place user authentification services in the .NET FrameWork. In order to the boilerplate code when creating your MVC project make sure to select "Single User Authenticication"
 
-1. How to create and populare a User admin role. You need to add this to the Startup.cs file and add this
+1. How to create and populare a User admin role. You need to add this to the Startup.cs file
     
 ```cs
         private void createRolesandUsers()
@@ -64,7 +65,109 @@ Since this application behaves differently if you are logged in as the Admininst
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
                 }
+              }
+        }
 ```
+
+2. Once the admin has been created you can then change change how their home page is presented. This is done by utilizing ViewBags. In the HomeController add the following
+
+
+```cs
+
+        public ActionResult Index()
+                {
+                    if(!User.Identity.IsAuthenticated)
+                    {
+                        ViewBag.displayMenu = "Login";
+                    }
+
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        var user = User.Identity;
+                        ViewBag.Name = user.Name;
+
+                        ViewBag.displayMenu = "No";
+
+                        if (isAdminUser())
+                        {
+                            ViewBag.displayMenu = "Yes";                    
+                        }
+                        return View();
+                    }
+                    else
+                    {
+                        ViewBag.Name = "Not Logged IN";
+                    }
+                    return View();
+
+                }
+
+                public Boolean isAdminUser()
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        var user = User.Identity;
+                        ApplicationDbContext context = new ApplicationDbContext();
+                        var usermanager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                        var p = usermanager.GetEmail(user.GetUserId());
+                        if (p != "admin@admin.com")
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }        
+```
+
+3. Once the ViewBags have been setup, implement them in the Home/Index View as shown
+
+```cs
+        <div class="banner">
+            <div class="bg-color">
+                <div class="container">
+                    <div class="row">
+                        <div class="banner-text text-center col-sm-12">
+                            <div class="text-border">
+                                <h2 class="text-dec">Exercize</h2>
+                            </div>
+                            <div class="intro-para text-center quote">
+                                
+                                    @if (ViewBag.displayMenu == "Yes")
+                                {
+                                <p>Welcome Admin.</p>
+                                
+                                    <li>@Html.ActionLink("View Customer Data", "CustomerData", "Admin", new { }, new { @class = "btn" })</li>
+                                
+                                }
+                                    else if (ViewBag.displayMenu == "No")
+                                    {
+                                        <p>Welcome User</p>
+                                        <p>
+                                            <li>@Html.ActionLink("Go To Workouts", "Index", "Exercise", new { }, new { @class = "btn" })</li>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Login", "Login", "Account", new { }, new { @class = "btn" })</li>
+                                                                
+                                    } </p>                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+```
+Now depending on the login information your Index action options are modified, great!
+
+## Demo02 : User Workouts 
+[demo](#user-workout)
+
+
             
 
 
