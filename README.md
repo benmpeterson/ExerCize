@@ -8,6 +8,7 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 - [Chart.Mvc](https://github.com/martinobordin/Chart.Mvc) - A .NET wrapper to generate charts using the popular Chart.Js V1 library (http://www.chartjs.org).
 - [SYEDSHAUNU](https://code.msdn.microsoft.com/ASPNET-MVC-5-Security-And-44cbdb97) - Great Tutorial on setting up an Admin User Role written by a Microsoft MVP.
 - [Scott Allen - LINQ Fundamentals](https://app.pluralsight.com/library/courses/linq-fundamentals-csharp-6/table-of-contents) - Great course on querying a database using LINQ
+- [Calorie Equation](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) - This was the study I used to calculate the calories burned with each activity
 
 
 ## How to use this Application.
@@ -23,17 +24,17 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 ## Index
 
 1. [Setting up an Admin Role](#admin-role)
-2. [Creating a user WorkOut](#user-workout)
+2. [Creating a User Workout](#user-workout)
 
 ---
 
-## Demo01: Admin Role
+## Demo01: Creating The Admin Role
 
 [demo](admin-role) 
 
-Since this application behaves differently if you are logged in as the Admininstrator it is important to see how to implement this utilizing the already in place user authentification services in the .NET FrameWork. In order to the boilerplate code when creating your MVC project make sure to select "Single User Authenticication"
+Since this application behaves differently if you are logged in as the Admininstrator it is important to see how to implement this utilizing the already in place user authentification services from the .NET Identity FrameWork. In order to utilize the boilerplate code when creating your MVC project make sure to select "Single User Authenticication" when promted during setup.
 
-1. How to create and populare a User admin role. You need to add this to the Startup.cs file
+1. How to create and populate an admin role. You need to add this to the Startup.cs file
     
 ```cs
         private void createRolesandUsers()
@@ -162,12 +163,253 @@ Since this application behaves differently if you are logged in as the Admininst
             </div>
         </div>
 ```
-Now depending on the login information your Index action options are modified, great!
+Now depending on the login information your home view and action options are modified, great!
 
 ## Demo02 : User Workouts 
 [demo](#user-workout)
 
+The next stage of this project was to be able to create a user and have them enter in Workouts which results in an estimated calories burned. 
+Using this [study](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp).I am able to calucalte this for a set of activities using their formula
 
+**Energy expenditure (calories/minute) = .0175 x Activity (from table) x weight(in kilograms)**
+
+1.To cacluate this for each user we must have them enter in their weight during registration. To do this I added the following to the RegisterViewModel
+
+```cs
+        public class RegisterViewModel
+        {
+            [Required]
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+            [DataType(DataType.Password)]
+            [Display(Name = "Password")]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Display(Name = "Confirm password")]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
+            
+            public string Sex { get; set; }
+
+           
+            public double Age { get; set; } 
+
+            [Required]
+            public double Weight { get; set; }
+        }
+```
+
+2. And this to the Register View
+
+```cs
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h4>Create a new account.</h4>
+            <hr />
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Age, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Sex, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Weight, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
+                </div>
+            </div>
+```
+
+3. This ensures that each user will have their assoicated weight in the database. The next thing we must do is retreive that weight each time we are creating a new workout. This is done in the Exercise Controller but creating a new UserManager instance that contains all the database row infomation of the currently logged in user. 
+
+```cs
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ExerciseCreate model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = Guid.Parse(User.Identity.GetUserId());
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());        
+            var userWeight = currentUser.Weight;
+
+            var service = new ExerciseService(userId, userWeight);
+            service.CreateExercise(model);
+
+            return RedirectToAction("Index");            
+        }
+```
+4. Once the weight is retrieved we pass it into our ExerciseService to create the workout using the constructor that takes the userId and userWeightInPounds.
+
+```cs
+
+        public class ExerciseService
+            {
+                private readonly Guid _userId;
+                private readonly Double _userWeightInPounds;
+
+                public ExerciseService(Guid userId, Double userWeightInPounds)
+                {
+                    _userId = userId;
+                    _userWeightInPounds = userWeightInPounds;
+                }
+
+                public ExerciseService(Guid userId)
+                {
+                    _userId = userId;
+                 
+                }
+
+                public bool CreateExercise(ExerciseCreate model)
+                {
+                    var entity =
+                        new Workout()
+                        {
+                            OwnerId = _userId,
+                            OwnerWeight = _userWeightInPounds,
+                            Type = model.Type,
+                            Intensity = model.Intensity,
+                            Duration = model.Duration,
+                            CaloriesBurned = 0,
+                            CreatedUtc = DateTimeOffset.UtcNow,
+                        };
+
+                    
+                    CalorieCalculator.GetCalories(entity);
+           
+                    using (var ctx = new ApplicationDbContext())
+                    {
+                        ctx.Workouts.Add(entity);                
+                        return ctx.SaveChanges() == 1;
+                    }
+
+                   
+                }
+
+``` 
+5. Notice here magic is happening with CalorieCalculator.GetCalorites(entity) to get the calories burned, but is it real magic? NO! Lets look at the method. 
+
+cs```
+
+        namespace Exercise.Services.HelperMethods
+
+        {
+            public class CalorieCalculator
+            {
+                public static double GetCalories(Workout entity)
+                {
+
+                    if (entity.Type == "Bicycling" && entity.Intensity == "Low")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 6.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Bicycling" && entity.Intensity == "High")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 10 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Dancing" && entity.Intensity == "Low")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 5.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Dancing" && entity.Intensity == "High")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 7.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Running" && entity.Intensity == "Low")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 10.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Running" && entity.Intensity == "High")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 13.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Swimming" && entity.Intensity == "Low")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 6 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Swimming" && entity.Intensity == "High")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 10.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Walking" && entity.Intensity == "Low")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 3.5 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else if (entity.Type == "Walking" && entity.Intensity == "High")
+                    {
+                        entity.CaloriesBurned = entity.Duration * .0175 * 5.0 * (entity.OwnerWeight / 2.2);
+                        entity.CaloriesBurned = Math.Round(entity.CaloriesBurned, 2);
+                        return entity.CaloriesBurned;
+                    }
+                    else
+                    {
+                        return entity.CaloriesBurned;
+                    }
+                }
+
+            }
+        }
+```
+This is taking the available types of activies along with intensity and user wight to calculate how many calories are burned. Notice it is divinding the OwnerWeight by 2.2. This is convert it to kilograms which is the variable used in the studies formula. 
+
+6. Thats in! Now for each new workout created for any user, a calorie burned calculation is taking place and stored to the database. 
             
 
 
