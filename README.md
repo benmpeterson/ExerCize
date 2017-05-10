@@ -20,13 +20,13 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 ## Index
 
-1. [Setting up an Admin Role](#admin-role)
-2. [Creating a User Workout](#user-workout)
-3. [Displaying Database Infomration](#chart-mvc)
+* 1. [Setting up an Admin Role](#Admin)
+* 2. [Creating a User Workout](#workouts)
+* 3. [Displaying Database Infomration](#charts)
 
 ---
 
-## Creating The Admin Role
+## Admin
 
 [demo](admin-role) 
 
@@ -163,7 +163,7 @@ Since this application behaves differently if you are logged in as the Admininst
 ```
 Now depending on the login information your home view and action options are modified, great!
 
-## User Workouts 
+## Workouts 
 [demo](#user-workout)
 
 The next stage of this project was to be able to create a user and have them enter in Workouts which results in an estimated calories burned. 
@@ -410,8 +410,8 @@ This is taking the available types of activies along with intensity and user wig
 
 6. Thats it! Now for each new workout created by any user, a calorie burned calculation is taking place, stored to the database and display in their list of work outs. 
             
-## Displaying User Information
-[demo](#chart-mvc)
+## Charts
+[demo](#charts)
 
 The last challenge of this application was to visually represent data for both the user and admin roles. This was done by implementing Chart.MVC a great, if a bit outdated, extenstion that makes working with chart.js a bit more C# friendly. Using this method I was able to create bar, line and radial graphs that represented different database query results. 
 
