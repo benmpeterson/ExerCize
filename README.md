@@ -47,7 +47,7 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 Since this application behaves differently if you are logged in as the Admininstrator it is important to see how to implement this utilizing the already in place user authentification services from the .NET Identity FrameWork. In order to utilize the boilerplate code when creating your MVC project make sure to select "Single User Authenticication" when promted during setup.
 
-1. How to create and populate an admin role. You need to add this to the Startup.cs file
+1. To create and populate an admin role, you need to add this to the Startup.cs file
     
 ```cs
         private void createRolesandUsers()
@@ -339,7 +339,7 @@ I found the calculation for this [here](https://www.hss.edu/conditions_burning-c
                 }
 
 ``` 
-5. Notice here magic is happening with CalorieCalculator.GetCalorites(entity) to get the calories burned, but is it real magic? NO! Lets look at the method. 
+5. Notice here the helper method CalorieCalculator.GetCalorites(entity).
 
 ```cs
 
