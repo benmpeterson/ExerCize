@@ -1,4 +1,4 @@
-ExerCize is a MVC portfolio project that logs user workouts and calculates how many calories are burned during each activity. The app was created to solve a set of common web development problems including setting up admin and user roles, querying user information from a Database, and displaying the queried information visually. The techniques to solve these problems are described in detail below.
+ExerCize is a MVC portfolio project that logs user workouts and calculates how many calories are burned during each activity. The app was created to solve a set of common web development problems including setting up admin and user roles, querying user information from a database, and displaying the queried information visually. The techniques to solve these problems are described in detail below.
 
 ## Libraries and Resources Used 
 
@@ -7,8 +7,8 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 - [Scott Allen - LINQ Fundamentals](https://app.pluralsight.com/library/courses/linq-fundamentals-csharp-6/table-of-contents) - Great course on querying a database using LINQ
 - [Calorie Equation](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) - This was the study I used to calculate the calories burned with each workout
 
-
-## How to use this Application.
+<!---
+## How to use this Application on the web.
 
 1. Launch the [App](https://www.addthisurlwhenhosted.com).
  
@@ -17,6 +17,21 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 3. The application runs differently depending on whether you log in as an admin or user. Login credentials for both are on the right side of login page
 
 4. If logged in as an admin select View Customer Data, if logged in as a user try to create a Workout or view Progress!
+-->
+
+## How to run locally
+
+1. Clone the repo 
+
+2. Open the project and set up Home/Index as the start up file in not already
+
+3. Start running the application. 
+
+4. Click Login
+
+5. The application runs differently depending on whether you log in as an admin or user. Login credentials for both are on the right side of login page
+
+6. In order for the administrator to have customer data to view, a customer and their workouts need to be created. 
 
 ## Index
 
