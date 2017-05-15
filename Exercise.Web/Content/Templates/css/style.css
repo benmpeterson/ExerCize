@@ -47,6 +47,7 @@ Navigation bar
 ************************************/
 .navbar-default .navbar-brand {
     color: #5FCF80;
+    z-index: 1;
 }
 .navbar-default {
     background-color: #ffffff;

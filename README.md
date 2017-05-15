@@ -7,17 +7,17 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 - [Scott Allen - LINQ Fundamentals](https://app.pluralsight.com/library/courses/linq-fundamentals-csharp-6/table-of-contents) - Great course on querying a database using LINQ
 - [Calorie Equation](https://www.hss.edu/conditions_burning-calories-with-exercise-calculating-estimated-energy-expenditure.asp) - This was the study I used to calculate the calories burned with each workout
 
-<!---
+
 ## How to use this Application on the web.
 
-1. Launch the [App](https://www.addthisurlwhenhosted.com).
+1. Launch the [App](http://benmpetersonexercize.azurewebsites.net/).
  
 2. Click Login. 
 
 3. The application runs differently depending on whether you log in as an admin or user. Login credentials for both are on the right side of login page
 
 4. If logged in as an admin select View Customer Data, if logged in as a user try to create a Workout or view Progress!
--->
+
 
 ## How to run locally
 
