@@ -610,4 +610,4 @@ The last challenge of this application was to visually represent data for both t
 
 ## Conclusion
 
-I hope you found this hopeful, you can email me with any questions at ben.micah.peterson@gmail.com
+I hope you found this helpful, you can email me with any questions at ben.micah.peterson@gmail.com

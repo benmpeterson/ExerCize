@@ -49,6 +49,10 @@ Navigation bar
     color: #5FCF80;
     z-index: 1;
 }
+
+.navbar{
+    z-index: 1;
+}
 .navbar-default {
     background-color: #ffffff;
 }
