@@ -10,7 +10,7 @@ ExerCize is a MVC portfolio project that logs user workouts and calculates how m
 
 ## How to use this Application on the web.
 
-1. Launch the [App](http://benmpetersonexercize.azurewebsites.net/).
+1. Launch the [App](http://exercize-env.us-east-1.elasticbeanstalk.com/).
  
 2. Click Login. 
 
